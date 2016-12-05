@@ -1,0 +1,63 @@
+<html>
+    <head> 
+        <title>Google Map Example</title>
+		<link rel="stylesheet" type="text/css" href="layout.css">
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&key=AIzaSyDipCVpqGHem190Ls4RKf3nHxvJspHAlak"></script>
+
+        <script type="text/javascript">
+            var loadMap = function() 
+            {
+				var maploc = {
+					lat: <%= restaurant.lat %>, 
+					lng: <%= restaurant.lon %>
+				};
+                var map = new google.maps.Map(document.getElementById("map"),{
+				      zoom: 18,
+				      center: maploc 
+				});
+				var map = new google.maps.Marker({
+					position: maploc,
+					map: map,
+					title: 'Map'
+				});
+            };
+            window.onload= loadMap;
+        </script>
+    </head>
+    <body>
+	 	<header><h1><%= restaurant.name %></h1></header>
+		<section>
+			<h1>Details about <%= restaurant.name %></h1>			
+			<% if (restaurant.data != ''){ %>
+			<img src="data:
+          <%= restaurant.mimetype %>;base64,<%=restaurant.data %> ">
+			<% } %>
+		
+			<ul>
+			<% if ( restaurant.lat != null && restaurant.lon != null){ %>
+			<li>GPS:[<%= restaurant.lat %>,<%= restaurant.lon %>]</li>
+			<% } %>
+			
+			<li>Cuisine: <%= restaurant.cuisine %></li>
+			<li>Borough: <%= restaurant.borough %></li>
+			<li>Buliding: <%= restaurant.address.building %></li>
+			<li>Street: <%= restaurant.address.street %></li>
+			<li>Owner: <%= restaurant.owner %></li>
+			
+			<li>Rating: <%= restaurant.rating %></li>
+			
+		
+			</ul>
+		</section>
+		<aside>
+        	<div id="map" style="width:500px;height:500px;">
+		</aside>
+	<form action="/edit" method="post">
+		<input type="hidden" name="owner" value="<%= restaurant.owner %>">	
+	<input type="submit" value="Edit"> 
+	</form>
+	<form action="/" method="get">	
+	<input type="submit" value="Back"> 
+	</form>
+   	</body>
+</html>

@@ -1,0 +1,34 @@
+<html>
+<head>
+<title>Restaurant</title>
+</head>
+<body>
+
+<form ref='uploadForm'
+            id='uploadForm'
+            action='/create'
+            method='post'
+            encType="multipart/form-data" method="post">
+	<h2>Name of restaurant:</h2>
+	<input type="text" name="rname"><br>
+
+	<h2>Address:</h2>
+	Building: <input type="text" name="building"><br>
+	Street: <input type="text" name="street"><br>
+	Zipcode: <input type="text" name="zipcode"><br>
+	<h3>Coordinates:</h3>
+	Longitude: <input type="text" name="lon"><br>
+	Latitude: <input type="text" name="lat"><br>
+
+	<h2>Other Info</h2>
+	Borough: <input type="text" name="borough"><br>
+	Cuisine: <input type="text" name="cuisine"><br>
+	Restaurant Id: <input type="text" name="restaurant_id"><br>
+	
+
+	<input type="file" name="view" />
+		<input type='submit' value='UpDate' />
+</form>
+
+</body>
+</html>

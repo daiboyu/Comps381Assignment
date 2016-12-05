@@ -1,0 +1,97 @@
+<html>
+    <head> 
+        <title>Google Map Example</title>
+		<link rel="stylesheet" type="text/css" href="layout.css">
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&key=AIzaSyDipCVpqGHem190Ls4RKf3nHxvJspHAlak"></script>
+
+        <script type="text/javascript">
+            var loadMap = function() 
+            {
+				var maploc = {
+					lat: <%= restaurant.address.coord[0] %>, 
+					lng: <%= restaurant.address.coord[1] %>
+				};
+                var map = new google.maps.Map(document.getElementById("map"),{
+				      zoom: 18,
+				      center: maploc 
+				});
+				var map = new google.maps.Marker({
+					position: maploc,
+					map: map,
+					title: 'Map'
+				});
+            };
+            window.onload= loadMap;
+        </script>
+    </head>
+    <body>
+	 	<header><h1><%= restaurant.name %></h1></header>
+		<section>
+			<h1>Details about <%= restaurant.name %></h1>			
+			<% if (restaurant.data != ''){ %>
+			<img src="data:
+          <%= restaurant.mimetype %>;base64,<%=restaurant.data %> ">
+			<% } %>
+		
+			<ul>
+			<% if ( restaurant.address.coord != null){ %>
+			<li>GPS:[<%= restaurant.address.coord %>]</li>
+			<% } %>
+			
+			<li>Cuisine: <%= restaurant.cuisine %></li>
+			<li>Borough: <%= restaurant.borough %></li>
+			<li>Buliding: <%= restaurant.address.building %></li>
+			<li>Street: <%= restaurant.address.street %></li>
+			<li>Owner: <%= restaurant.owner %></li>
+			
+			<li>Rating: </li>
+			<% if ( restaurant.rating != undefined) { %>
+				<% for ( var i=0 ; restaurant.rating.length > i; i++ ){ %>
+					
+	 			Score: <%= restaurant.rating[i].score%>, Owner: <%= restaurant.rating[i].owner  %>
+				<Br>
+				<% } %>
+			<% } %>
+			</ul>
+		</section>
+		<aside>
+        	<div id="map" style="width:500px;height:500px;">
+		</aside>
+	
+	<form action="/rate" method="post">
+		<input type="hidden" name="owner" value="<%= restaurant.owner %>">
+		<input type="hidden" name="name" value="<%= restaurant.name %>">
+		<select name="score">
+			
+  			<option value="1">1</option>
+  			<option value="2">2</option>
+ 			<option value="3">3</option>
+			<option value="4">4</option>
+  			<option value="5">5</option>
+ 			<option value="6">6</option>
+			<option value="7">7</option>
+  			<option value="8">8</option>
+ 			<option value="9">9</option>
+			<option value="10">10</option>
+		</select>
+		<input type="submit" value="Rate">
+		
+	</form>
+	<form action="/edit" method="get">
+		<input type="hidden" name="owner" value="<%= restaurant.owner %>">
+		<input type="hidden" name="name" value="<%= restaurant.name %>">
+		<input type="submit" value="Edit">
+		
+	</form>
+	<form action="/delete?name=<%= restaurant.name %>" method="get">
+		<input type="hidden" name="owner" value="<%= restaurant.owner %>">
+		<input type="hidden" name="name" value="<%= restaurant.name %>">	
+		<input type="submit" value="Delete"> 
+	</form>
+
+	<form action="/" method="get">	
+		<input type="submit" value="Back"> 
+	</form>
+
+   	</body>
+</html>

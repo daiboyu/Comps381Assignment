@@ -1,0 +1,37 @@
+<html>
+    <head> 
+        <title>Edit Page</title>
+		<link rel="stylesheet" type="text/css" href="layout.css">
+     
+    </head>
+    <body>
+	 	<header><h1><%= restaurant.name %></h1></header>
+
+
+		<form ref='uploadForm' id='uploadForm' action='/update' method='post' encType="multipart/form-data" method="post">
+		    <h2>Name of restaurant:</h2>
+			<%= restaurant.name %>
+			<input type="hidden" name="rname" value="<%= restaurant.name %>"><br>
+
+			<h2>Address:</h2>
+			Building: <input type="text" name="building" value="<%= restaurant.address.building %>"><br>
+			Street: <input type="text" name="street" value="<%= restaurant.address.street %>"><br>
+			Zipcode: <input type="text" name="zipcode" value="<%= restaurant.address.zipcode %>"><br>
+			<h3>Coordinates:</h3>
+			Longitude: <input type="text" name="lon" value="<%=restaurant.address.coord[0] %>"><br>
+			Latitude: <input type="text" name="lat" value="<%=restaurant.address.coord[1] %>"><br>
+
+			<h2>Other Info</h2>
+			Borough: <input type="text" name="borough" value="<%= restaurant.borough %>"><br>
+			Cuisine: <input type="text" name="cuisine" value="<%= restaurant.cuisine %>"><br>
+			
+	<% if (restaurant.data != ''){ %>
+			<img src="data:
+          <%= restaurant.mimetype %>;base64,<%=restaurant.data %> ">
+			<% } %>
+			<input type="file" name="view" />
+				<input type='submit' value='Update!' />
+		</form>
+
+   	</body>
+</html>

@@ -28,7 +28,7 @@
 	 	<header><h1><%= restaurant.name %></h1></header>
 		<section>
 			<h1>Details about <%= restaurant.name %></h1>			
-			<% if (restaurant.data != ''){ %>
+			<% if (restaurant.mimetype == 'image/jpeg'){ %>
 			<img src="data:
           <%= restaurant.mimetype %>;base64,<%=restaurant.data %> ">
 			<% } %>
